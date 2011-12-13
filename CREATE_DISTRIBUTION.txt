@@ -1,0 +1,17 @@
+to create a CCF2 distribution using this tomcat instance, preform the following steps
+in a (linux) command prompt:
+
+1. Export the apache-tomcat directory from subversion:
+	svn export https://ctf.open.collab.net/svn/repos/ccf/branches/CCF%202.x/ccf-tomcat7/apache-tomcat-7.0.14
+
+2. Place the built CCFMaster.war into the webapps directory:
+    wget \
+    http://bit.ly/ccfmaster_last_successful_build \
+    -O apache-tomcat-7.0.14/webapps/CCFMaster.war 
+
+3. Create the distribution archives:
+	tar czf ccf-tomcat.tar.gz apache-tomcat-7.0.14
+	zip -r9q ccf-tomcat.zip apache-tomcat-7.0.14
+	
+4. ...
+5. Profit!
