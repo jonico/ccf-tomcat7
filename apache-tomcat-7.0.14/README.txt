@@ -1,11 +1,11 @@
-This file contains the instructions on how to run CCFv2 in this tomcat
+This file contains the instructions on how to run TeamForge Connector Server 2.1 aka CollabNet Connect/Sync in this tomcat
 distribution.
 
 
 Prerequisites
 =============
 
-CCFv2 requires the following software to be installed on the computer
+TeamForge Connector Server 2.1 requires the following software to be installed on the computer
 it is running on
 
 - a Java 6 runtime environment. For QC<->CTF integrations, it must be
@@ -15,16 +15,23 @@ it is running on
 Preparations
 ------------
 
-If you're reading this file, I'm assuming you have successfully
-obtained the CCFv2 distribution and extracted it to the directory
+If you're reading this file, I'm assuming you have successfully obtained the 
+TeamForge Connector Server 2.1 distribution and extracted it to the directory
 where you wish to deploy the framework.
 
-1. Edit ccf.conf to suit your environment. The file included in this
-   distribution contains comments that describe the different
-   settings.
-   
-2. Make sure that the directory you specified for ccf.home exists and
-   is writable
+1. Verify whether following properties files - "ccf.conf" and
+  "ccfhomeruntimeconfig-template.properties" exists in the extracted folder.
+
+2. Open the "ccf.conf" configuration file(e.g. $CATALINA_HOME/ccf.conf ), 
+   modify ccfhome property value to a folder(e.g. c:/ccf/ccfhome) created
+   and to be used by TeamForge Connector Server 2.1. 
+
+3. Copy the "ccfhomeruntimeconfig-template.properties" (e.g. $CATALINA_HOME/ccfhomeruntimeconfig-
+   template.properties)to the folder path specified in the ccfhome property (e.g. c:/ccf/ccfhome)
+   and rename the file to ccfhomeruntimeconfig.properties.   
+
+4. Edit the runtime configuration properties present in ccfhomeruntimeconfig.properties to suit
+   your environment.
 
 
 Running as a Windows Service
@@ -42,7 +49,7 @@ Install the windows service.
    - right-click on cmd.exe and select "Run as administrator".
    - if a UAC warning pops up, click OK.
 
-2. change into the directory where you unzipped the CCFv2 distribution:
+2. change into the directory where you unzipped the TeamForge Connector Server 2.1 distribution:
 
    cd c:\path\to\apache-tomcat-7.0.14
     
@@ -50,8 +57,8 @@ Install the windows service.
    
    bin\service.bat
    
-   This will register CCFv2 as a windows service and set it up
-   according to the settings you specified in ccf.conf. If you get
+   This will register TeamForge Connector Server 2.1 as a windows service and set it up
+   according to the settings you specified in ccfhomeruntimeconfig.properties. If you get
    errors in this step, make sure the command prompt has administrator
    privileges (see step 1.).
 
@@ -64,19 +71,19 @@ In order to do so, you need to supply a name for each service instance
 when calling service.bat in step 3. above.
 
 For example:
-	<edit ccf.conf with settings for service 2>
+	<edit ccf.conf and ccfhomeruntimeconfig.properties with settings for service 1>
 	bin\service.bat CCFMaster1
-	copy ccf.conf ccf.conf.master1.bak
-	<edit ccf.conf with settings for service 2>
+	copy ccf.conf ccf.conf.master1
+	<edit ccf.conf and ccfhomeruntimeconfig.properties with settings for service 2>
 	bin\service.bat CCFMaster2 
-	copy ccf.conf ccf.conf.master2.bak
+	copy ccf.conf ccf.conf.master2
 	
 
    
 Run the service
 ---------------
 
-To run the CCFv2 distribution, you can start the service using the
+To run the TeamForge Connector Server 2.1 distribution, you can start the service using the
 Services console in windows.  Alternatively, you can run tomcat7w.exe
 in the bin directory to configure, start and stop the service.
 
@@ -84,7 +91,7 @@ in the bin directory to configure, start and stop the service.
 Running as a Linux service (32-bit)
 ===================================
 
-Setting up and inatalling the Service
+Setting up and installing the Service
 -------------------------------------
 
 1. Running CCFMaster as a service on linux systems relies on the
@@ -97,10 +104,11 @@ Setting up and inatalling the Service
    package management system of your distribution may contain a
    package providing commons-daemon.
 
-2. In addition to the settings specified in ccf.conf (see section
-   "Preparations" above), you need to edit the following two lines
+2. In addition to the settings specified in ccf.conf and ccfhomeruntimeconfig.properties 
+   (see section "Preparations" above), you need to edit the following two lines
    near the beginning of bin/CCFMaster.sh that specify where you
-   unzipped the CCFv2 distribution and the location of your JRE:
+   unzipped the TeamForge Connector Server 2.1 distribution
+   and the location of your JRE:
 
         CATALINA_HOME="/opt/ccfmaster/apache-tomcat-7.0.14"
         JAVA_HOME="/opt/java/jdk1.6.0_25"
