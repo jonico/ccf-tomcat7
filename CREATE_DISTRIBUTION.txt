@@ -1,17 +1,39 @@
-to create a CCF2 distribution using this tomcat instance, preform the following steps
-in a (linux) command prompt:
+to create a CCF2 distribution using this tomcat instance, perform the following steps in a (linux) command prompt:
+
+With SVN
 
 1. Export the apache-tomcat directory from subversion:
-	svn export https://ctf.open.collab.net/svn/repos/ccf/branches/CCF%202.x/ccf-tomcat7/apache-tomcat-7.0.14
+        svn export https://ctf.open.collab.net/svn/repos/ccf/trunk/ccf-tomcat7/apache-tomcat-7.0.53
 
 2. Place the built CCFMaster.war into the webapps directory:
-    wget \
-    http://bit.ly/ccfmaster_last_successful_build \
-    -O apache-tomcat-7.0.14/webapps/CCFMaster.war 
+        wget  http://bit.ly/ccfmaster_last_successful_build -O apache-tomcat-7.0.53/webapps/CCFMaster.war
 
 3. Create the distribution archives:
-	tar czf ccf-tomcat.tar.gz apache-tomcat-7.0.14
-	zip -r9q ccf-tomcat.zip apache-tomcat-7.0.14
-	
+        tar czf ccf-tomcat.tar.gz apache-tomcat-7.0.53
+        zip -r9q ccf-tomcat.zip apache-tomcat-7.0.53
 4. ...
-5. Profit!
+
+5. Distribute
+
+
+With Git
+
+to create a CCF2 distribution using this tomcat instance, perform the following steps in a (linux) command prompt:
+
+1. Install Git
+
+2.Configure Git not to verify the self-signed certificate in order to perform any remote Git operations.
+		git config --global --bool --add http.sslVerify false
+
+3. Clone the ccf-tomcat 7 project using below command
+		git clone --branch master --single-branch http://ctf.open.collab.net/gerrit/p/ccf-tomcat7.git
+
+4. Place the built CCFMaster.war into the webapps directory: use --no-check-certificate to bypass ssl authentication
+		cd ccf-tomcat7/apache-tomcat-7.0.53/webapps/  
+		wget https://ctf.open.collab.net/sf/frs/do/downloadFile/projects.ccf/frs.hudson.ccf_master_2_0/frsXXXXX?dl=XX --no-check-certificate
+
+5. Create the distribution archives:
+		cd ccf-tomcat7/
+		zip -r9q ccf-tomcat.zip apache-tomcat-7.0.53
+		
+6. Distribute !!
