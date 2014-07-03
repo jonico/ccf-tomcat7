@@ -1,11 +1,11 @@
-This file contains the instructions on how to run TeamForge Connector Server 2.4 aka CollabNet Connect/Sync in this tomcat
+This file contains the instructions on how to run TeamForge Connector Server 2.3.2 aka CollabNet Connect/Sync in this tomcat
 distribution.
 
 
 Prerequisites
 =============
 
-TeamForge Connector Server 2.4 requires the following software to be installed on the computer
+TeamForge Connector Server 2.3.2 requires the following software to be installed on the computer
 it is running on
 
 - a Java 6/7/8 runtime environment. For QC<->CTF integrations, it must be
@@ -16,7 +16,7 @@ Preparations
 ------------
 
 If you're reading this file, I'm assuming you have successfully obtained the 
-TeamForge Connector Server 2.4 distribution and extracted it to the directory
+TeamForge Connector Server 2.3.2 distribution and extracted it to the directory
 where you wish to deploy the framework.
 
 1. Verify whether following properties files - "ccf.conf" and
@@ -24,7 +24,7 @@ where you wish to deploy the framework.
 
 2. Open the "ccf.conf" configuration file(e.g. $CATALINA_HOME/ccf.conf ), 
    modify ccfhome property value to a folder(e.g. c:/ccf/ccfhome) created
-   and to be used by TeamForge Connector Server 2.4. 
+   and to be used by TeamForge Connector Server 2.3.2. 
 
 3. Copy the "ccfhomeruntimeconfig-template.properties" (e.g. $CATALINA_HOME/ccfhomeruntimeconfig-
    template.properties)to the folder path specified in the ccfhome property (e.g. c:/ccf/ccfhome)
@@ -49,7 +49,7 @@ Install the windows service.
    - right-click on cmd.exe and select "Run as administrator".
    - if a UAC warning pops up, click OK.
 
-2. change into the directory where you unzipped the TeamForge Connector Server 2.4 distribution:
+2. change into the directory where you unzipped the TeamForge Connector Server 2.3.2 distribution:
 
    cd c:\path\to\apache-tomcat-7.0.53
     
@@ -57,7 +57,7 @@ Install the windows service.
    
    bin\service.bat
    
-   This will register TeamForge Connector Server 2.4 as a windows service and set it up
+   This will register TeamForge Connector Server 2.3.2 as a windows service and set it up
    according to the settings you specified in ccfhomeruntimeconfig.properties. If you get
    errors in this step, make sure the command prompt has administrator
    privileges (see step 1.).
@@ -83,7 +83,7 @@ For example:
 Run the service
 ---------------
 
-To run the TeamForge Connector Server 2.4 distribution, you can start the service using the
+To run the TeamForge Connector Server 2.3.2 distribution, you can start the service using the
 Services console in windows.  Alternatively, you can run tomcat7w.exe
 in the bin directory to configure, start and stop the service.
 
@@ -107,7 +107,7 @@ Setting up and installing the Service
 2. In addition to the settings specified in ccf.conf and ccfhomeruntimeconfig.properties 
    (see section "Preparations" above), you need to edit the following two lines
    near the beginning of bin/CCFMaster.sh that specify where you
-   unzipped the TeamForge Connector Server 2.4 distribution
+   unzipped the TeamForge Connector Server 2.3.2 distribution
    and the location of your JRE:
 
         CATALINA_HOME="/opt/ccfmaster/apache-tomcat-7.0.53"
