@@ -1,6 +1,6 @@
 #!/bin/sh
 CATALINA_HOME="/opt/ccf-tomcat/apache-tomcat-7.0.53"
-JAVA_HOME="/usr/java/jdk1.8.0_05/"
+JAVA_HOME="/usr/java/jdk1.7.0_71/"
 
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
