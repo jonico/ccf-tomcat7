@@ -34,17 +34,32 @@ rem Guess CATALINA_HOME if not defined
 set "CURRENT_DIR=%cd%"
 if not "%CATALINA_HOME%" == "" goto gotHome
 set "CATALINA_HOME=%cd%"
-if exist "%CATALINA_HOME%\bin\tomcat7.exe" goto okHome
+if exist "%CATALINA_HOME%\bin\tomcat7.exe" goto okBase
 rem CD to the upper dir
 cd ..
 set "CATALINA_HOME=%cd%"
 :gotHome
-if exist "%CATALINA_HOME%\bin\tomcat7.exe" goto okHome
+if exist "%CATALINA_HOME%\bin\tomcat7.exe" goto okBase
 echo The tomcat.exe was not found...
 echo The CATALINA_HOME environment variable is not defined correctly.
 echo This environment variable is needed to run this program
 goto end
-:okHome
+:configureJavaHome
+rem Getting user input to install tomcat 32/64 bit
+set /P enableTomcat64=Do you want to install 64 bit tomcat. default 32 bit will be configured [y/N]?
+if /i "%enableTomcat64%"=="y" (
+ set /p "JAVA_HOME=Enter the location of 64 bit java_home:"
+ goto checkJdkHome
+)
+if /i "%enableTomcat64%"=="n" (
+ goto checkJdkHome
+)
+if /i "%enableTomcat64%"=="" (
+ goto checkJdkHome
+)
+echo You have entered an invalid option.
+goto end
+:checkJdkHome
 rem Make sure prerequisite environment variables are set
 if not "%JAVA_HOME%" == "" goto gotJdkHome
 if not "%JRE_HOME%" == "" goto gotJreHome
@@ -68,12 +83,18 @@ echo This environment variable is needed to run this program
 echo NB: JAVA_HOME should point to a JDK not a JRE
 goto end
 :okJavaHome
-if not "%CATALINA_BASE%" == "" goto gotBase
+if not "%CATALINA_BASE%" == "" goto setTomcat
 set "CATALINA_BASE=%CATALINA_HOME%"
-:gotBase
-
+:setTomcat
+if /i "%enableTomcat64%"=="y" (
+echo Setting up 64 bit tomcat
+set "EXECUTABLE=%CATALINA_HOME%\bin\tomcat7amd64.exe"
+goto doInstall
+)
+echo Setting up 32 bit tomcat
 set "EXECUTABLE=%CATALINA_HOME%\bin\tomcat7x86.exe"
-
+goto doInstall
+:okBase
 rem Set default Service name
 set SERVICE_NAME=TeamForgeConnector
 set PR_DISPLAYNAME=TeamForge Connector
@@ -98,7 +119,7 @@ shift
 runas /env /savecred /user:%SERVICE_USER% "%COMSPEC% /K \"%SELF%\" %SERVICE_CMD% %SERVICE_NAME%"
 goto end
 :checkServiceCmd
-if /i %SERVICE_CMD% == install goto doInstall
+if /i %SERVICE_CMD% == install goto configureJavaHome
 if /i %SERVICE_CMD% == remove goto doRemove
 if /i %SERVICE_CMD% == uninstall goto doRemove
 echo Unknown parameter "%1"
@@ -109,6 +130,8 @@ goto end
 
 :doRemove
 rem Remove the service
+rem set to remove tomcat7x86 by generic
+set "EXECUTABLE=%CATALINA_HOME%\bin\tomcat7x86.exe"
 "%EXECUTABLE%" //DS//%SERVICE_NAME%
 if not errorlevel 1 goto removed
 echo Failed removing '%SERVICE_NAME%' service
